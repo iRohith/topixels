@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { redirectToLoginPage } from "../server-actions";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { LogInButton } from "./log-in-button";
 
 export default function LoginUI({ redirectUrl }: { redirectUrl?: string }) {
   return (
-    <Button onClick={() => redirectToLoginPage("github", redirectUrl)}>
-      Log In with github
-    </Button>
+    <LogInButton provider="github" redirectUrl={redirectUrl}>
+      <Button>Log In with github</Button>
+    </LogInButton>
   );
 }
