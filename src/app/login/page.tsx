@@ -2,6 +2,8 @@ import { supabase } from "@/lib/supabase/client";
 import LoginUI from "./components/login-ui";
 import { redirect } from "next/navigation";
 
+export const runtime = "edge";
+
 export default async function Page({
   searchParams,
 }: {
