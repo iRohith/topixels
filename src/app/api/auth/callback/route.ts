@@ -4,15 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
-  const redirect = `${req.nextUrl.origin}/${
-    req.nextUrl.searchParams.get("redirect") ?? ""
-  }`;
-
   if (code) {
     const cookieStore = cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  return NextResponse.redirect(redirect, 301);
+  return NextResponse.redirect(
+    new URL(
+      req.nextUrl.searchParams.get("redirect") ?? "/",
+      req.nextUrl.origin
+    ),
+    301
+  );
 }
