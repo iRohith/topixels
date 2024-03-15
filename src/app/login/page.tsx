@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/server";
+import { supabase } from "@/lib/supabase/client";
 import LoginUI from "./components/login-ui";
 import { redirect } from "next/navigation";
 
