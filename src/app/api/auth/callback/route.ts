@@ -11,10 +11,6 @@ export async function GET(req: NextRequest) {
   }
 
   return NextResponse.redirect(
-    new URL(
-      req.nextUrl.searchParams.get("redirect") ?? "/",
-      req.nextUrl.origin
-    ),
-    301
+    new URL(req.nextUrl.searchParams.get("redirect") ?? "/", req.nextUrl.origin)
   );
 }

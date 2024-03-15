@@ -1,10 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { redirectToLogOut } from "./login/server-actions";
+import { logOut } from "./login/server-actions";
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string };
+}) {
   return (
-    <Button onClick={() => redirectToLogOut()}>Log out from github Home</Button>
+    <Button
+      onClick={() =>
+        logOut(
+          `/${
+            searchParams
+              ? `?${new URLSearchParams(searchParams).toString()}`
+              : ""
+          }`
+        )
+      }
+    >
+      Log out from github Home
+    </Button>
   );
 }
