@@ -1,11 +1,12 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { redirectToLoginPage } from "../server-actions";
 
 export default function LoginUI({ redirectUrl }: { redirectUrl?: string }) {
-  const loginUrl = `/api/login?provider=github&redirect=${redirectUrl ?? "/"}`;
   return (
-    <Link href={loginUrl} className={buttonVariants()}>
-      Log In
-    </Link>
+    <Button onClick={() => redirectToLoginPage("github", redirectUrl)}>
+      Log In with github
+    </Button>
   );
 }

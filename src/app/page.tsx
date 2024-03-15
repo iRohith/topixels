@@ -1,10 +1,10 @@
-import { buttonVariants } from "@/components/ui/button";
-import Link from "next/link";
+"use client";
 
-export default async function Home() {
+import { Button } from "@/components/ui/button";
+import { redirectToLogOut } from "./login/server-actions";
+
+export default function Page() {
   return (
-    <Link href="/api/logout" className={buttonVariants()}>
-      Log out
-    </Link>
+    <Button onClick={() => redirectToLogOut()}>Log out from github Home</Button>
   );
 }

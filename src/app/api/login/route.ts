@@ -25,9 +25,11 @@ export async function GET(req: NextRequest) {
   const res = await supabase.auth.signInWithOAuth({
     provider: req.nextUrl.searchParams.get("provider")! as Provider,
     options: {
-      redirectTo: `${oauthRedirectUrl}?redirect=${localRedirectUrl}&`,
+      redirectTo: `${oauthRedirectUrl}?redirect=${encodeURIComponent(
+        localRedirectUrl
+      )}&`,
     },
   });
 
-  return NextResponse.redirect(res.data.url!, 301);
+  return NextResponse.redirect(res.data.url!, 303);
 }

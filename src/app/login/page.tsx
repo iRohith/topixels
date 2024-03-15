@@ -1,6 +1,7 @@
-import { supabase } from "@/lib/supabase/client";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoginUI from "./components/login-ui";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export const runtime = "edge";
 
@@ -10,6 +11,7 @@ export default async function Page({
   searchParams?: { [key: string]: string | undefined };
 }) {
   const redirectUrl = searchParams?.redirect ?? "/";
+  const supabase = createServerComponentClient({ cookies });
 
   const {
     data: { user },
