@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  const res = await supabase.auth.signInWithOAuth({
+  const supout = await supabase.auth.signInWithOAuth({
     provider: req.nextUrl.searchParams.get("provider")! as Provider,
     options: {
       redirectTo: `${oauthRedirectUrl}?redirect=${encodeURIComponent(
@@ -30,6 +30,9 @@ export async function GET(req: NextRequest) {
       )}&`,
     },
   });
-
-  return NextResponse.redirect(res.data.url!, 303);
+  const res = NextResponse.redirect(supout.data.url!, 303);
+  req.headers.forEach((val, key) => {
+    res.headers.append(key, val);
+  });
+  return res;
 }
