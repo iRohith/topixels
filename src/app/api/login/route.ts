@@ -1,3 +1,4 @@
+import { lrstrip } from "@/lib/utils";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { Provider } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
     provider: req.nextUrl.searchParams.get("provider")! as Provider,
     options: {
       redirectTo: `${oauthRedirectUrl}?redirect=${encodeURIComponent(
-        localRedirectUrl
+        localRedirectUrl === "/" ? "/" : lrstrip(localRedirectUrl)
       )}&`,
     },
   });

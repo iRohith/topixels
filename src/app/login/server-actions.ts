@@ -1,6 +1,6 @@
 "use server";
 
-import { RedirectType, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export async function redirectToLoginPage(
   provider: "google" | "github",
@@ -13,5 +13,5 @@ export async function redirectToLoginPage(
 }
 
 export async function redirectToLogOut() {
-  redirect("/api/logout", RedirectType.push);
+  redirect("/api/logout");
 }

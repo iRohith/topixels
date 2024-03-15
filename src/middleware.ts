@@ -19,13 +19,14 @@ export async function middleware(req: NextRequest) {
     error,
   } = await supabase.auth.getSession();
   if (error || !session) {
-    return NextResponse.rewrite(
+    return NextResponse.redirect(
       new URL(
         `/login?redirect=${encodeURIComponent(
           req.nextUrl.href.replace(req.nextUrl.origin, "")
         )}`,
         req.nextUrl.origin
-      )
+      ),
+      303
     );
   }
 
