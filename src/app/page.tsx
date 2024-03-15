@@ -1,9 +1,26 @@
-import Link from "next/link";
+"use client";
 
-export default async function Page() {
+import { Button } from "@/components/ui/button";
+import { logOut } from "./login/server-actions";
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string };
+}) {
   return (
-    <Link prefetch={false} href="/api/logout">
+    <Button
+      onClick={() =>
+        logOut(
+          `/${
+            searchParams
+              ? `?${new URLSearchParams(searchParams).toString()}`
+              : ""
+          }`
+        )
+      }
+    >
       Log out from github Home
-    </Link>
+    </Button>
   );
 }
