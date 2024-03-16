@@ -50,7 +50,22 @@
     --radius: 0.5rem;
   }
 }
- 
+
+.image-wrapper {
+  object-fit: fill;
+  background-color: aliceblue;
+  width: fit-content;
+  height: fit-content;
+  mask-image: url("/splash.png");
+  -webkit-mask-image: url("/splash.png");
+  mask-size: 110%;
+  -webkit-mask-size: 110%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+}
+
 @layer base {
   * {
     @apply border-border;

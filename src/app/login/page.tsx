@@ -1,26 +1,28 @@
+import { LogInButton } from "@/components/supabase-ui-tools";
+import { Button } from "@/components/ui/button";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import LoginUI from "./components/login-ui";
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
-export const runtime = "edge";
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | undefined };
-}) {
-  const redirectUrl = searchParams?.redirect ?? "/";
-  const supabase = createServerComponentClient({ cookies });
+export default async function Page() {
+  const cookieStore = cookies();
+  const redirectUrl = cookieStore.get("redirect")?.value ?? "/";
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
 
-  if (!error && user) {
+  if (!error && user && !redirectUrl.startsWith("/login")) {
     redirect(redirectUrl);
+  } else if (redirectUrl.startsWith("/login")) {
+    redirect("/");
   }
 
-  return <LoginUI redirectUrl={redirectUrl} />;
+  return (
+    <LogInButton>
+      <Button>Log In with github</Button>
+    </LogInButton>
+  );
 }

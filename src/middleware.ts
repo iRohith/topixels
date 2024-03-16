@@ -20,15 +20,15 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
 
   if (error || !session) {
-    return NextResponse.redirect(
-      new URL(
-        `/login?redirect=${encodeURIComponent(
-          req.nextUrl.href.replace(req.nextUrl.origin, "")
-        )}`,
-        req.nextUrl.origin
-      ),
-      303
+    const res = NextResponse.rewrite(new URL("/login", req.nextUrl.origin));
+    res.cookies.set(
+      "redirect",
+      req.nextUrl.href.replace(req.nextUrl.origin, ""),
+      {
+        sameSite: "strict",
+      }
     );
+    return res;
   }
 
   return res;

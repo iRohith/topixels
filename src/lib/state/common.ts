@@ -1,4 +1,4 @@
-import { isAdmin } from "@/server/user";
+import { isAdmin, isLoggedIn } from "@/server/user";
 import { produce } from "immer";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -32,7 +32,7 @@ function makeCookieStorage(options: CookieOptions = {}) {
       if (options.domain) {
         cookieString += `; domain=${options.domain}`;
       }
-      document.cookie = cookieString;
+      document.cookie = cookieString + "; SameSite=strict";
     },
     removeItem: function (key: string): void {
       const encodedKey = encodeURIComponent(key);
@@ -74,12 +74,14 @@ export const useThemeStore = create<ThemeState>()(
 
 interface UserState {
   isAdmin: boolean;
+  loggedIn: boolean;
   init: () => void;
 }
 
 export const useIsAdminStore = create<UserState>((set) => ({
   isAdmin: false,
+  loggedIn: false,
   init: async () => {
-    set({ isAdmin: await isAdmin() });
+    set({ isAdmin: await isAdmin(), loggedIn: await isLoggedIn() });
   },
 }));
