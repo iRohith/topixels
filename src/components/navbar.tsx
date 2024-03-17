@@ -1,24 +1,27 @@
 import { ChevronRight, Github } from "lucide-react";
 import { DarkModeToggle } from "./dark-mode-toggle";
 import { Logo } from "./logo";
-import MaxWidthWrapper from "./max-width-wrapper";
 import { Button, buttonVariants } from "./ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { LogInButton, LoginConditional } from "./supabase-ui-tools";
+import NavDesktop from "./nav-desktop";
 
 export default function Navbar() {
   return (
-    <div className="w-full h-16 sticky z-50 inset-x-0 backdrop-blur-md bg-black/20 flex items-center border-b">
+    <div className="w-full h-20 fixed z-50 inset-x-0 backdrop-blur-md bg-black/20 flex items-center justify-center border-b md:px-[10vw]">
       <header className="w-full">
-        <MaxWidthWrapper className="flex flex-row">
+        <div className="flex flex-row">
           <Logo />
+          <div className="px-0 md:px-4 w-full flex flex-row items-center gap-4 mr-4">
+            <NavDesktop />
+          </div>
           <div className="px-0 md:px-4 justify-end w-full flex flex-row items-center gap-4 mr-4">
             <DarkModeToggle />
             <LoginConditional
               signedInComponent={
                 <Link
-                  href="/generate"
+                  href="/tools"
                   className={cn(
                     buttonVariants(),
                     "flex-row min-w-fit hidden md:flex"
@@ -38,7 +41,7 @@ export default function Navbar() {
               }
             />
           </div>
-        </MaxWidthWrapper>
+        </div>
       </header>
     </div>
   );

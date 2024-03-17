@@ -54,8 +54,6 @@
 .image-wrapper {
   object-fit: fill;
   background-color: aliceblue;
-  width: fit-content;
-  height: fit-content;
   mask-image: url("/splash.png");
   -webkit-mask-image: url("/splash.png");
   mask-size: 110%;
