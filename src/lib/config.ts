@@ -1,3 +1,5 @@
+import { LoraModel, Model } from "@/app/api/models/model-types";
+
 export const APP_NAME = "topixels";
 
 export const NavItems: { name: string; href?: string }[] = [
@@ -94,3 +96,39 @@ export const VidToolItems: {
       "Generate video from a text prompt following another video as base",
   },
 ];
+
+export const nullModel: Model = {
+  createdAt: new Date(),
+  createdBy: "",
+  description: "",
+  displayName: "",
+  favoriteCount: 0,
+  id: -1,
+  imageUrl:
+    "https://imagedelivery.net/9UaeqBrXzrQ9mC5U6QFATQ/9fd6401f-cb5c-4d3f-4f9f-15fb7d76e600/public",
+  location: "platform",
+  type: "checkpoint",
+  url: "",
+  ext: "safetensors",
+  baseModelType: "sd1.5",
+  favoritedByUser: false,
+};
+
+export const defaultModel: Model = {
+  createdAt: new Date(),
+  createdBy: "topixels",
+  description: "Dreamshaper 8",
+  displayName: "dreamshaper_8",
+  favoriteCount: 0,
+  id: 0,
+  imageUrl:
+    "https://imagedelivery.net/9UaeqBrXzrQ9mC5U6QFATQ/fcda0b56-33ae-45e0-0ec2-f3c9b4740b00/public",
+  location: "platform",
+  type: "checkpoint",
+  url: "",
+  ext: "safetensors",
+  baseModelType: "sd1.5",
+  favoritedByUser: false,
+};
+
+export const nullLora: LoraModel = { ...nullModel, type: "lora", weight: 0 };

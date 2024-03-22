@@ -78,7 +78,7 @@ interface UserState {
   init: () => void;
 }
 
-export const useIsAdminStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set) => ({
   isAdmin: false,
   loggedIn: false,
   init: async () => {

@@ -9,7 +9,7 @@ import NavDesktop from "./nav-desktop";
 
 export default function Navbar() {
   return (
-    <div className="w-full h-20 fixed z-50 inset-x-0 backdrop-blur-md bg-black/20 flex items-center justify-center border-b md:px-[10vw]">
+    <div className="w-full h-20 fixed top-0 left-0 z-50 inset-x-0 backdrop-blur-md bg-black/20 flex items-center justify-center border-b md:px-[10vw]">
       <header className="w-full">
         <div className="flex flex-row">
           <Logo />
@@ -32,7 +32,7 @@ export default function Navbar() {
                 </Link>
               }
               signedOutComponent={
-                <LogInButton loading={<div>Loading</div>}>
+                <LogInButton>
                   <Button>
                     <Github size={24} className="mr-2" />
                     Log In

@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import { Separator } from "./ui/separator";
 import { Card, CardContent } from "./ui/card";
+import { ScrollArea } from "./ui/scroll-area";
 
 export default function NavDesktop() {
   const path = usePathname();
@@ -51,33 +52,35 @@ export default function NavDesktop() {
                   {menu.name}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent className="flex flex-row left-0">
-                  <Card className="w-[50vw] h-[60vh] overflow-scroll">
+                  <Card>
                     <CardContent>
-                      <h1 className="mt-5">Image generation</h1>
-                      <ul className="grid gap-3 p-4 grid-cols-3">
-                        {ImgToolItems.map((component) => (
-                          <ListItem
-                            key={component.id}
-                            title={component.name}
-                            href={component.id}
-                          >
-                            {component.description}
-                          </ListItem>
-                        ))}
-                      </ul>
-                      <Separator />
-                      <h1 className="mt-5">Video generation</h1>
-                      <ul className="grid gap-3 p-4 grid-cols-3">
-                        {VidToolItems.map((component) => (
-                          <ListItem
-                            key={component.id}
-                            title={component.name}
-                            href={component.id}
-                          >
-                            {component.description}
-                          </ListItem>
-                        ))}
-                      </ul>
+                      <ScrollArea className="w-[50vw] h-[55vh]">
+                        <h1 className="mt-5">Image generation</h1>
+                        <ul className="grid gap-3 p-4 grid-cols-2 lg:grid-cols-3">
+                          {ImgToolItems.map((component) => (
+                            <ListItem
+                              key={component.id}
+                              title={component.name}
+                              href={component.id}
+                            >
+                              {component.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                        <Separator />
+                        <h1 className="mt-5">Video generation</h1>
+                        <ul className="grid gap-3 p-4 grid-cols-2 lg:grid-cols-3">
+                          {VidToolItems.map((component) => (
+                            <ListItem
+                              key={component.id}
+                              title={component.name}
+                              href={component.id}
+                            >
+                              {component.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </ScrollArea>
                     </CardContent>
                   </Card>
                 </NavigationMenuContent>

@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import { APP_NAME } from "@/lib/config";
 import { cn } from "@/lib/utils";
@@ -6,6 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import BackImg from "../../public/bg.jpg";
 import { LogInButton, LoginConditional } from "@/components/supabase-ui-tools";
+import { usePathname } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
 
 const perks = [
   {
@@ -29,11 +34,29 @@ const perks = [
 ];
 
 export default function Home() {
+  const { toast } = useToast();
+  const pathname = usePathname();
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    if (pathname !== "/") {
+      setShowToast(true);
+    }
+  }, [pathname, toast]);
+
+  if (showToast) {
+    toast({
+      title: "Please login",
+      variant: "destructive",
+    });
+    setShowToast(false);
+  }
+
   return (
     <div className="flex flex-col items-center relative -top-10">
       <section
         id="intro"
-        className="relative flex flex-col lg:h-screen items-center justify-center lg:flex-row mt-20 w-full"
+        className="relative flex flex-col lg:h-screen items-center justify-center lg:flex-row w-full"
       >
         <div className="py-20 text-center flex flex-col items-center max-w-3xl">
           <h1 className="flex flex-col text-4xl font-bold tracking-tight">
@@ -64,7 +87,7 @@ export default function Home() {
                 </Link>
               }
               signedOutComponent={
-                <LogInButton loading={<div>Loading</div>}>
+                <LogInButton>
                   <Button className="mt-6">
                     <Github size={24} className="mr-2" />
                     Log In

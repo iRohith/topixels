@@ -17,6 +17,7 @@ export const Logo = ({
         alt="Logo"
         width={512}
         height={512}
+        priority
         className={cn("w-20 h-20", imgClassName)}
       />
       <span

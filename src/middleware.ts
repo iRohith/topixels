@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
     },
   });
 
-  if (["/login", "/"].includes(new URL(req.url).pathname)) {
+  if (["/"].includes(new URL(req.url).pathname)) {
     return res;
   }
 
@@ -20,7 +20,7 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
 
   if (error || !session) {
-    const res = NextResponse.rewrite(new URL("/login", req.nextUrl.origin));
+    const res = NextResponse.rewrite(new URL("/", req.nextUrl.origin));
     res.cookies.set(
       "redirect",
       req.nextUrl.href.replace(req.nextUrl.origin, ""),

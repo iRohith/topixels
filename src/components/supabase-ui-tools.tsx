@@ -5,14 +5,9 @@ import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import React, { Suspense, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useUserStore } from "@/lib/state/common";
 
-function LogInButtonInternal({
-  children,
-  loading,
-}: {
-  children: React.ReactNode;
-  loading?: React.ReactNode;
-}) {
+function LogInButtonInternal({ children }: { children: React.ReactNode }) {
   const [supabase] = useState(createPagesBrowserClient());
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -89,16 +84,10 @@ function LogOutButtonInternal({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function LogInButton({
-  children,
-  loading,
-}: {
-  children: React.ReactNode;
-  loading?: React.ReactNode;
-}) {
+export function LogInButton({ children }: { children: React.ReactNode }) {
   return (
     <Suspense fallback={children}>
-      <LogInButtonInternal loading={loading}>{children}</LogInButtonInternal>
+      <LogInButtonInternal>{children}</LogInButtonInternal>
     </Suspense>
   );
 }
@@ -118,20 +107,10 @@ export function LoginConditional({
   signedInComponent?: React.ReactNode;
   signedOutComponent?: React.ReactNode;
 }) {
-  const [supabase] = useState(createPagesBrowserClient());
-  const [signedIn, setSignedIn] = useState(false);
-
+  const { loggedIn, init } = useUserStore();
   useEffect(() => {
-    const func = async () => {
-      const {
-        data: { session },
-        error,
-      } = await supabase.auth.getSession();
-      if (error || !session || !session.user) setSignedIn(false);
-      else setSignedIn(true);
-    };
-    func();
-  }, [supabase, setSignedIn]);
+    init();
+  }, [init]);
 
-  return signedIn ? signedInComponent : signedOutComponent;
+  return loggedIn ? signedInComponent : signedOutComponent;
 }
